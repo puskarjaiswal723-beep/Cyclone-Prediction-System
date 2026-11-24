@@ -20,18 +20,12 @@ CORS(app)
 # LOAD TRAINED ML MODEL
 # --------------------------------------------------
 
-MODEL_PATH = os.path.join(
-    os.path.dirname(__file__),
-    "..",
-    "models",
-    "cyclone_model.joblib"
-)
 
-bundle = joblib.load(MODEL_PATH)
+MODEL_DIR = os.path.join(os.path.dirname(__file__), "..", "models")
 
-model = bundle["model"]
-label_encoder = bundle["label_encoder"]
-features = bundle["features"]
+model = joblib.load(os.path.join(MODEL_DIR, "cyclone_model.pkl"))
+label_encoder = joblib.load(os.path.join(MODEL_DIR, "label_encoder.pkl"))
+features = joblib.load(os.path.join(MODEL_DIR, "model_features.pkl"))
 
 
 # --------------------------------------------------
