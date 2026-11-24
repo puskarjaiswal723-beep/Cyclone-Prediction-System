@@ -1744,16 +1744,19 @@ function App() {
 
         const response = await fetch(
           "https://cylonex-backend.onrender.com/api/cyclone-alerts",
-          { signal: controller.signal }
+          {
+            method: "GET",
+            signal: controller.signal
+          }
         );
+
+        const data = await response.json();
 
         if (!response.ok) {
           throw new Error(
-            "Unable to connect to the cyclone alerts service."
+            data.error || "Unable to retrieve cyclone alerts."
           );
         }
-
-        const data = await response.json();
 
         if (!isMounted) return;
 
@@ -1978,26 +1981,21 @@ function App() {
         month: validTime.getMonth() + 1,
         day: validTime.getDate(),
         hour: validTime.getHours(),
-
-        "Latitude of the center":
-          selectedLocation.latitude * 10,
-
-        "Longitude of the center":
-          selectedLocation.longitude * 10,
-
+        "Latitude of the center": selectedLocation.latitude * 10,
+        "Longitude of the center": selectedLocation.longitude * 10,
         "Central pressure": pressure
       };
 
       const response = await fetch(
-  "https://cylonex-backend.onrender.com/predict",
-  {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify(payload)
-  }
-);
+        "https://cylonex-backend.onrender.com/predict",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(payload)
+        }
+      );
 
       const data = await response.json();
 

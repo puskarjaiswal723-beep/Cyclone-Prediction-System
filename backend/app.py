@@ -20,14 +20,15 @@ CORS(app)
 # LOAD TRAINED ML MODEL
 # --------------------------------------------------
 
-
 MODEL_DIR = os.path.join(os.path.dirname(__file__), "..", "models")
 
-model = joblib.load(os.path.join(MODEL_DIR, "cyclone_model.pkl"))
-label_encoder = joblib.load(os.path.join(MODEL_DIR, "label_encoder.pkl"))
-features = joblib.load(os.path.join(MODEL_DIR, "model_features.pkl"))
+MODEL_PATH = os.path.join(MODEL_DIR, "cyclone_model_compressed.joblib")
 
+bundle = joblib.load(MODEL_PATH)
 
+model = bundle["model"]
+label_encoder = bundle["label_encoder"]
+features = bundle["features"]
 # --------------------------------------------------
 # OFFICIAL IMD CAP FEED
 # --------------------------------------------------
