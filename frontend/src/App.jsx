@@ -1743,7 +1743,7 @@ function App() {
         setAlertsError("");
 
         const response = await fetch(
-          "http://127.0.0.1:5000/api/cyclone-alerts",
+          "https://cylonex-backend.onrender.com/api/cyclone-alerts",
           { signal: controller.signal }
         );
 
